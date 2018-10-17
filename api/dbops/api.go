@@ -2,6 +2,7 @@ package dbops
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 	"tmp/api/utils"
 	"video_server/api/defs"
@@ -59,4 +60,7 @@ func AddNewVideo(aid int, name string) (*defs.VideoInfo, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	fmt.Println(vid)
+	return nil, nil
 }
