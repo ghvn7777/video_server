@@ -5,3 +5,9 @@ type UserCredential struct { // 自动转 json
 	Pwd string `json:"pwd"`
 }
 
+type VideoInfo struct {
+	Id string
+	AuthorId int
+	Name string
+	DisplayCtime string
+}

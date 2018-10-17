@@ -1,7 +1,10 @@
 package dbops
 
 import (
+	"database/sql"
 	"log"
+	"tmp/api/utils"
+	"video_server/api/defs"
 )
 
 func AddUserCredential(loginName string, pwd string) error {
@@ -10,8 +13,12 @@ func AddUserCredential(loginName string, pwd string) error {
 		log.Printf("%s", err)
 		return err
 	}
-	stmtIns.Exec(loginName, pwd)
-	stmtIns.Close()
+	_, err = stmtIns.Exec(loginName, pwd)
+	if err != nil {
+		log.Printf("%s", err)
+		return err
+	}
+	defer stmtIns.Close()
 	return nil
 }
 
@@ -22,8 +29,12 @@ func GetUserCredential(loginName string) (string, error) {
 		return "", err
 	}
 	var pwd string
-	stmtOut.QueryRow(loginName).Scan(&pwd)
-	stmtOut.Close()
+	err = stmtOut.QueryRow(loginName).Scan(&pwd)
+	if err != nil && err != sql.ErrNoRows { // 没有结果
+		log.Printf("%s", err)
+		return "", err
+	}
+	defer stmtOut.Close()
 
 	return pwd, nil
 }
@@ -34,7 +45,18 @@ func DeleteUser(loginName string, pwd string) error {
 		log.Printf("%s", err)
 		return err
 	}
-	stmtDel.Exec(loginName, pwd)
-	stmtDel.Close()
+	_, err = stmtDel.Exec(loginName, pwd)
+	if err != nil {
+		log.Printf("%s", err)
+		return err
+	}
+	defer stmtDel.Close()
 	return nil
+}
+
+func AddNewVideo(aid int, name string) (*defs.VideoInfo, error) {
+	vid, err := utils.NewUUID()
+	if err != nil {
+		return nil, err
+	}
 }
