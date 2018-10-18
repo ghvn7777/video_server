@@ -5,6 +5,7 @@ type UserCredential struct { // 自动转 json
 	Pwd string `json:"pwd"`
 }
 
+// response
 type SignedUp struct {
 	Success bool `json:"success"`
 	SessionId string `json:"session_id"`
