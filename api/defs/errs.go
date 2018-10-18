@@ -6,7 +6,7 @@ type Err struct {
 }
 
 type ErrorResponse struct {
-	httpSC int
+	HttpSC int
 	Error Err
 }
 
