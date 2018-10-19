@@ -31,7 +31,7 @@ func RegisterHandlers() *httprouter.Router  {
 
 	router.GET("/videos/:vid-id", streamHandler)
 	router.POST("/upload/:vid-id", uploadHandler) // 会把冒号之后的东西作为参数传到 handler 里，具体看 github
-
+	router.GET("/testpage", testPageHandler)
 	return router
 }
 
