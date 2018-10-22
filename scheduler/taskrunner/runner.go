@@ -39,6 +39,7 @@ func (r *Runner) startDispatch() {
 			if c == READY_TO_DISPATCH {
 				err := r.Dispatcher(r.Data)
 				if err != nil {
+					log.Printf("Dispatcher error: %v", err)
 					r.Error <- CLOSE
 				} else {
 					r.Controlller <- READY_TO_EXECUTE
@@ -46,6 +47,7 @@ func (r *Runner) startDispatch() {
 			} else if c == READY_TO_EXECUTE {
 				err := r.Executor(r.Data)
 				if err != nil {
+					log.Printf("Executor error: %v", err)
 					r.Error <- CLOSE
 				} else {
 					r.Controlller <- READY_TO_DISPATCH
